@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
         }
         val recycler = RecyclerView(this).apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+layoutManager = LinearLayoutManager(this@MainActivity)
         }
         val fab = Button(this).apply {
             text = "➕ Nueva nota"
