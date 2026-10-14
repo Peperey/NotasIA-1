@@ -1,4 +1,4 @@
-name: Build NotasIA
+name: Build APK
 
 on:
   push:
@@ -11,29 +11,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
-    - name: Setup Gradle 8.7
-      uses: actions/setup-gradle@v4
-      with:
-        gradle-version: "8.7"
+          java-version: 17
 
-    - name: Build APK
-      run: gradle assembleDebug --no-daemon
-
+      - name: Setup Gradle 8.7
+        uses: actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
 
       - name: Build APK
-        env:
-          NOTAS_API_KEY: ${{ secrets.NOTAS_API_KEY }}
-        run: |
-          gradle wrapper --gradle-version 8.5 || true
-          gradle assembleDebug --no-daemon || ./gradlew assembleDebug --no-daemon
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: NotasIA-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/*.apk
+
