@@ -17,15 +17,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Build APK
         env:
           NOTAS_API_KEY: ${{ secrets.NOTAS_API_KEY }}
         run: |
           gradle wrapper --gradle-version 8.5 || true
-          ./gradlew assembleDebug --no-daemon
+          gradle assembleDebug --no-daemon || ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
